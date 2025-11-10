@@ -1,0 +1,14 @@
+{    
+    "oic": {
+        "integrations": [
+            {
+                "filename": "TEST_0509_01.00.0000.iar"
+            }
+        ],
+        "projects": [
+            {
+                "filename": "TESTVBSPROJECT"
+            }
+        ]
+    }
+}
