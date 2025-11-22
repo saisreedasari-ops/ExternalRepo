@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ns3:icsproject name="project_1" version="10.1" cversion="5" modelType="freeform" xmlns="http://www.oracle.com/2014/03/ics/flow/definition" xmlns:ns2="http://www.oracle.com/2014/03/ics/project/definition" xmlns:ns3="http://www.oracle.com/2014/03/ics/project">
+    <ns2:projectCode>TEST_0509</ns2:projectCode>
+    <ns2:projectVersion>01.00.0000</ns2:projectVersion>
+    <ns2:projectName>Test 0509</ns2:projectName>
+    <ns2:percentComplete>100</ns2:percentComplete>
+    <ns2:projectHasErrors>false</ns2:projectHasErrors>
+    <ns2:projectHasWarnings>false</ns2:projectHasWarnings>
+    <ns3:icsflow name="flow_1">
+        <application name="application_13">
+            <role>source</role>
+            <adapter>
+                <type>app-adapter</type>
+                <code>REST_OIC_GENERIC_TI</code>
+                <name>trigger_test</name>
+                <property name="hasAttachment" value="false"/>
+            </adapter>
+            <mep>fire-and-forget</mep>
+            <outbound name="outbound_14">
+                <binding>rest</binding>
+                <operation>execute</operation>
+                <resourceGroup name="resourcegroup_15">
+                    <resource name="resource_17" location="../resources/application_13/outbound_14/resourcegroup_15/trigger_test_REQUEST.wsdl" type="wsdl"/>
+                    <resource name="resource_25" location="../resources/application_13/outbound_14/resourcegroup_15/trigger_test_REQUEST.jca" type="jca"/>
+                </resourceGroup>
+                <output name="output_19">
+                    <role>request</role>
+                    <messageContextRef refUri="messagecontext_18"/>
+                </output>
+            </outbound>
+        </application>
+        <processor name="processor_1">
+            <type>integrationMetadata</type>
+            <role>undefined</role>
+            <resourceGroup name="resourcegroup_2">
+                <resource name="resource_3" location="../resources/processor_1/resourcegroup_2/ICSIntegrationMetadata.xsd" type="xsd"/>
+            </resourceGroup>
+            <output name="output_5">
+                <messageContextRef refUri="messagecontext_4"/>
+            </output>
+        </processor>
+        <processor name="processor_6">
+            <type>messageTracker</type>
+            <role>messageTracker:global</role>
+            <trackingVariableGroup>
+                <trackingVariable>
+                    <role>tracking_var_1</role>
+                    <primary>true</primary>
+                    <name>isActive</name>
+                    <xpath>/execute/User/isActive</xpath>
+                    <messageContextRef refUri="messagecontext_18"/>
+                    <output name="output_8">
+                        <messageContextRef refUri="messagecontext_7"/>
+                    </output>
+                </trackingVariable>
+                <trackingVariable>
+                    <role>tracking_var_2</role>
+                    <primary>false</primary>
+                    <name>tracking_var_2</name>
+                    <messageContextRef refUri="messagecontext_18"/>
+                    <output name="output_10">
+                        <messageContextRef refUri="messagecontext_9"/>
+                    </output>
+                </trackingVariable>
+                <trackingVariable>
+                    <role>tracking_var_3</role>
+                    <primary>false</primary>
+                    <name>tracking_var_3</name>
+                    <messageContextRef refUri="messagecontext_18"/>
+                    <output name="output_12">
+                        <messageContextRef refUri="messagecontext_11"/>
+                    </output>
+                </trackingVariable>
+            </trackingVariableGroup>
+        </processor>
+        <processor name="processor_20">
+            <type>activityStreamLogger</type>
+            <role>undefined</role>
+            <resourceGroup name="resourcegroup_30">
+                <role>exprBuilderProperties</role>
+                <resource name="resource_31" location="../resources/processor_20/resourcegroup_30/expr.properties" type="properties"/>
+            </resourceGroup>
+            <resourceRef refUri="messagecontext_18">
+                <role>primary-source</role>
+            </resourceRef>
+            <property name="traceOnly" value="false"/>
+            <processorName>Logger1</processorName>
+            <processorDescription></processorDescription>
+        </processor>
+        <messageContext name="messagecontext_4">
+            <resourceRef refUri="processor_1/resourcegroup_2/resource_3"/>
+            <rootElement elementName="metadata" namespace="http://www.oracle.com/2014/03/ic/integration/metadata"/>
+        </messageContext>
+        <messageContext name="messagecontext_7">
+            <rootElement elementName="string" namespace="http://www.w3.org/2001/XMLSchema"/>
+        </messageContext>
+        <messageContext name="messagecontext_9">
+            <rootElement elementName="string" namespace="http://www.w3.org/2001/XMLSchema"/>
+        </messageContext>
+        <messageContext name="messagecontext_11">
+            <rootElement elementName="string" namespace="http://www.w3.org/2001/XMLSchema"/>
+        </messageContext>
+        <messageContext name="messagecontext_18">
+            <resourceRef refUri="application_13/outbound_14/resourcegroup_15/resource_17"/>
+            <rootElement elementName="execute" namespace="http://xmlns.oracle.com/cloud/adapter/REST/trigger_test_REQUEST/types"/>
+            <wsdlMessage messageName="executeRequestMessage" namespace="http://xmlns.oracle.com/cloud/adapter/REST/trigger_test_REQUEST" partName="parameters"/>
+        </messageContext>
+        <commonNamespaceMaps/>
+        <orchestration>
+            <integrationMetadata id="im0" refUri="processor_1"/>
+            <receive trackingRefUri="processor_6" id="r0" refUri="application_13/outbound_14/output_19"/>
+            <activityStreamLogger id="lg0" refUri="processor_20"/>
+            <stop id="st0"/>
+        </orchestration>
+    </ns3:icsflow>
+</ns3:icsproject>

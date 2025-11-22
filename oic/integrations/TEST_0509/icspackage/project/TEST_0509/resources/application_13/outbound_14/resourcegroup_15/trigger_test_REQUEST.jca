@@ -1,0 +1,41 @@
+<adapter-config xsdTargetNamespace="http://xmlns.oracle.com/cloud/adapter/REST/trigger_test_REQUEST/types" name="trigger_test_REQUESTPortType" adapter="REST" wsdlLocation="trigger_test_REQUEST.wsdl" xmlns="http://platform.integration.oracle/blocks/adapter/fw/metadata">
+  <connection-factory location="cloud/CloudAdapter">
+    <non-managed-connection managedConnectionFactoryClassName="oracle.cloud.connector.rest.RestAdapterConnectionFactory">
+      <property name="cloud.adapter.plugin.version" value="25.06.0"/>
+      <property name="cloud.adapter.sdk.version" value="25.06.0"/>
+      <property name="connectionUrl" value="%%REST_OIC_GENERIC_TI_connectionUrl"/>
+      <property name="csfMap" value="oracle.cloud.adapter"/>
+      <property name="csfkey" value="66d9b7b2da95c404a0071b693224fb29ea79dd6cd53676322a8e8db473cfb460"/>
+      <property name="privateEndpoint" value="false"/>
+      <property name="securityPolicy" value="BASIC_AUTH"/>
+    </non-managed-connection>
+  </connection-factory>
+  <endpoint-activation portType="trigger_test_REQUESTPortType" operation="execute">
+    <activation-spec className="oracle.tip.adapter.cloud.CloudActivationSpec">
+      <property name="targetOperation" value="execute"/>
+      <property name="HTTPHeadersAdded" value="true"/>
+      <property name="HttpVerb" value="POST"/>
+      <property name="RequestElementNS" value="http://xmlns.oracle.com/cloud/adapter/nxsd/surrogate/request/trigger_test/"/>
+      <property name="RequestElementName" value="User"/>
+      <property name="RequestMediaType" value="application/json"/>
+      <property name="ResourceURI" value="/submit"/>
+      <property name="activationSpecClass" value="oracle.tip.adapter.cloud.CloudActivationSpec"/>
+      <property name="allowChangeDefaultNamespace" value="false"/>
+      <property name="copyFaultFromModel" value="true"/>
+      <property name="forceWsdlTypesBuild" value="true"/>
+      <property name="generateConnectivityPropertiesInboundRequest" value="RESTINREQ"/>
+      <property name="generateConnectivityPropertiesInboundResponse" value="RESTINRES"/>
+      <property name="generateInboundCredentials" value="true"/>
+      <property name="generatePartnerLink" value="false"/>
+      <property name="generateSecurityPropertiesInboundRequest" value="SECURITYPROPSRESTINREQ"/>
+      <property name="integrationSchemaNamespace" value="http://xmlns.oracle.com/cloud/adapter/REST/trigger_test_REQUEST/types"/>
+      <property name="integrationWSDLNamespace" value="http://xmlns.oracle.com/cloud/adapter/REST/trigger_test_REQUEST"/>
+      <property name="invocationStyle" value="NOTIFICATION"/>
+      <property name="isRequestJsonSchema" value="false"/>
+      <property name="isRequestRawBytes" value="false"/>
+      <property name="operations" value="default"/>
+      <property name="postQueryParamsAsContent" value="false"/>
+      <property name="requestJsonTopLevelArray" value="false"/>
+    </activation-spec>
+  </endpoint-activation>
+</adapter-config>
